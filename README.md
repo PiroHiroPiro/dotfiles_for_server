@@ -1,6 +1,6 @@
 # dotfiles
 
-dotfiles for Linux Server
+dotfiles for Linux server
 
 Now supports the following OS:
 - Ubuntu
