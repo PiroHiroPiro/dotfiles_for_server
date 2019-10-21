@@ -1,0 +1,17 @@
+# https://qiita.com/Hi-king/items/a8485557095692f1bf13
+## .gitignore ##
+# ignore all
+*
+/*
+
+# allow
+!.gitignore
+!README.md
+!install.sh
+
+!zsh/.zsh_aliases
+!zsh/.zshrc
+!zsh/.config/zsh/tmux.zsh
+
+!tmux/.tmux.conf
+!tmux/.config/tmux/*.sh
