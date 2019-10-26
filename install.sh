@@ -81,7 +81,7 @@ fi
 
 curl -sSL "https://github.com/PiroHiroPiro/dotfiles_for_server/archive/master.tar.gz" -o $DOTPATH | tar zxv
 # 解凍したら，DOTPATH に置く
-mv -f dotfiles-master $DOTPATH
+mv -f dotfiles_for_server-master $DOTPATH
 
 cd "${DOTPATH}"
 
