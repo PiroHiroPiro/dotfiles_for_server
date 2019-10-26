@@ -3,7 +3,7 @@
 DOTPATH=~/dotfiles
 
 # https://qiita.com/koara-local/items/1377ddb06796ec8c628a
-local distri_name
+distri_name=""
 if [ -e /etc/debian_version ] || [ -e /etc/debian_release ]; then
   # Check Ubuntu or Debian
   if [ -e /etc/lsb-release ]; then
