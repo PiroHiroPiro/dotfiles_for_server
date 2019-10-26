@@ -126,6 +126,8 @@ for file in ${LINK_FILES[@]}; do \
   ln -sf $(pwd)/tmux/$file ~/$file; \
 done
 
+# https://did2memo.net/2017/05/18/tmux-attach-no-sessions-error/
+export TMUX_TMPDIR=/tmp
 tmux source ~/.tmux.conf
 
 echo "##### finish to setup tmux #####"

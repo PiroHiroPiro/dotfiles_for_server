@@ -1,3 +1,4 @@
 #!/bin/bash -e
 
-ipconfig getifaddr `netstat -rn -f inet | awk '/^default/{print $6;exit}'`
+# https://moomindani.wordpress.com/2014/09/17/linux-command-ip-address/
+hostname -I | cut -f1 -d' '
