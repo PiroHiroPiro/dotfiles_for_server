@@ -3,58 +3,62 @@
 DOTPATH=~/dotfiles
 
 # https://qiita.com/koara-local/items/1377ddb06796ec8c628a
-distri_name=""
-if [ -e /etc/debian_version ] || [ -e /etc/debian_release ]; then
-  # Check Ubuntu or Debian
-  if [ -e /etc/lsb-release ]; then
-    # Ubuntu
-    # include Elementary OS
-    distri_name="ubuntu"
+function os() {
+  distri_name=""
+  if [ -e /etc/debian_version ] || [ -e /etc/debian_release ]; then
+    # Check Ubuntu or Debian
+    if [ -e /etc/lsb-release ]; then
+      # Ubuntu
+      # include Elementary OS
+      distri_name="ubuntu"
+    else
+      # Debian
+      distri_name="debian"
+    fi
+  elif [ -e /etc/fedora-release ]; then
+    # Fedra
+    distri_name="fedora"
+  elif [ -e /etc/redhat-release ]; then
+    if [ -e /etc/oracle-release ]; then
+      # Oracle Linux
+      distri_name="oracle"
+    else
+      # Red Hat Enterprise Linux
+      # include centOS
+      distri_name="redhat"
+    fi
+  elif [ -e /etc/arch-release ]; then
+    # Arch Linux
+    distri_name="arch"
+  elif [ -e /etc/turbolinux-release ]; then
+    # Turbolinux
+    distri_name="turbol"
+  elif [ -e /etc/SuSE-release ]; then
+    # SuSE Linux
+    distri_name="suse"
+  elif [ -e /etc/mandriva-release ]; then
+    # Mandriva Linux
+    distri_name="mandriva"
+  elif [ -e /etc/vine-release ]; then
+    # Vine Linux
+    distri_name="vine"
+  elif [ -e /etc/gentoo-release ]; then
+    # Gentoo Linux
+    distri_name="gentoo"
   else
-    # Debian
-    distri_name="debian"
+    # Other
+    distri_name="unknown"
   fi
-elif [ -e /etc/fedora-release ]; then
-  # Fedra
-  distri_name="fedora"
-elif [ -e /etc/redhat-release ]; then
-  if [ -e /etc/oracle-release ]; then
-    # Oracle Linux
-    distri_name="oracle"
-  else
-    # Red Hat Enterprise Linux
-    # include centOS
-    distri_name="redhat"
-  fi
-elif [ -e /etc/arch-release ]; then
-  # Arch Linux
-  distri_name="arch"
-elif [ -e /etc/turbolinux-release ]; then
-  # Turbolinux
-  distri_name="turbol"
-elif [ -e /etc/SuSE-release ]; then
-  # SuSE Linux
-  distri_name="suse"
-elif [ -e /etc/mandriva-release ]; then
-  # Mandriva Linux
-  distri_name="mandriva"
-elif [ -e /etc/vine-release ]; then
-  # Vine Linux
-  distri_name="vine"
-elif [ -e /etc/gentoo-release ]; then
-  # Gentoo Linux
-  distri_name="gentoo"
-else
-  # Other
-  distri_name="unknown"
-fi
+
+  echo "${distri_name}"
+}
 
 function install_if_not_exist() {
   if [ -n $(which $1) ]; then
     echo "already installed ${1}"
   else
     echo "----- install ${1} -----"
-    case distri_name in
+    case os in
       ubuntu | debian)
         sudo apt install -y $1
         ;;
@@ -72,12 +76,6 @@ echo "##### download dotfiles #####"
 
 install_if_not_exist curl
 install_if_not_exist tar
-
-if [ -d ~/.dotfiles ]; then
-  read -p "The folder (${DOTPATH}) exists. Do you want to overwrite it ? [y/N]: " yn </dev/tty
-  case "$yn" in [yY]*) ;; *) exit 0 ;; esac
-  rm -rf DOTPATH
-fi
 
 curl -sSL "https://github.com/PiroHiroPiro/dotfiles_for_server/archive/master.tar.gz" -o $DOTPATH | tar zxv
 # 解凍したら，DOTPATH に置く
@@ -140,13 +138,5 @@ export TMUX_TMPDIR=/tmp
 tmux source ~/.tmux.conf
 
 echo "##### finish to setup tmux #####"
-
-read -p "Do you want to change to new zsh now ? [y/N]: " yn </dev/tty
-case "$yn" in [yY]*) ;; *) exit 0 ;; esac
-if [ "$(echo $SHELL)" != "$(which zsh)" ]; then
-  zsh
-else
-  source ~/.zshrc
-fi
 
 exit 0
