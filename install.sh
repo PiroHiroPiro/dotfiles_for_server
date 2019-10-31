@@ -54,7 +54,7 @@ function os() {
 }
 
 function install_if_not_exist() {
-  if [ -n $(which $1 > /dev/null) ]; then
+  if [ -n $(which $1 > /dev/null 2>&1) ]; then
     echo "already installed ${1}"
   else
     echo "----- install ${1} -----"
@@ -67,6 +67,7 @@ function install_if_not_exist() {
         ;;
       *)
         echo "unsupported os.\nplease check https://github.com/PiroHiroPiro/dotfiles_for_server."
+        exit 1
         ;;
     esac
   fi
