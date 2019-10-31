@@ -53,8 +53,9 @@ function os() {
   echo "${distri_name}"
 }
 
+# https://stackoverflow.com/questions/592620/how-to-check-if-a-program-exists-from-a-bash-script
 function install_if_not_exist() {
-  if [ -n $(which $1 > /dev/null 2>&1) ]; then
+  if [ -n $(command -v $1 > /dev/null 2>&1) ]; then
     echo "already installed ${1}"
   else
     echo "----- install ${1} -----"
