@@ -110,6 +110,15 @@ for file in ${LINK_FILES[@]}; do \
   ln -sf $(pwd)/zsh/$file ~/$file; \
 done
 
+if [ ! -d ~/.zsh ]; then
+  mkdir ~/.zsh
+fi
+LINK_FILES=(.zshrc)
+for file in ${LINK_FILES[@]}; do \
+  unlink ~/.zsh/$file&>/dev/null
+  ln -sf $(pwd)/zsh/$file ~/.zsh/$file; \
+done
+
 echo "----- change default shell -----"
 chsh -s $(which zsh)
 
