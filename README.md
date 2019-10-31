@@ -13,7 +13,7 @@ Now supports the following OS:
 ## Setup
 
 ```shell
-$ curl -sSL https://raw.githubusercontent.com/PiroHiroPiro/dotfiles_for_server/master/install.sh | sh
+$ curl -sSL https://raw.githubusercontent.com/PiroHiroPiro/dotfiles_for_server/master/install.sh | bash
 ```
 
 ## References
