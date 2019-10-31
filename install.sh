@@ -54,7 +54,7 @@ function os() {
 }
 
 function install_if_not_exist() {
-  if [ -n $(which $1) ]; then
+  if [ -n $(which $1 > /dev/null) ]; then
     echo "already installed ${1}"
   else
     echo "----- install ${1} -----"
