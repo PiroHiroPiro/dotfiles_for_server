@@ -145,7 +145,7 @@ echo "##### finish to setup tmux #####"
 echo
 echo "zsh:"
 echo "  please run the following command."
-echo "    echo $(command -v zsh) >> /etc/shells"
+echo "    sudo echo $(command -v zsh) >> /etc/shells"
 echo "    chsh -s $(command -v zsh)"
 echo "    zsh"
 echo "    source ~/.zshrc"
