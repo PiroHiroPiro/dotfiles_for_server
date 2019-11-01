@@ -4,11 +4,9 @@ dotfiles for Linux server
 
 Now supports the following OS:
 - Ubuntu
-- Debian
 - RedHat
-- SUSE
 - CentOS
-- Elementary OS
+- Debian
 
 ## Setup
 
