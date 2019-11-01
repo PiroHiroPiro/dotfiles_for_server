@@ -154,11 +154,11 @@ else
       echo "----- install dependencies -----" 
       sudo apt-get update -y
       sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-      curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key  add -
+      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key  add -
       sudo apt-key fingerprint 0EBFCD88
 
       echo "----- add repository -----" 
-      add-apt-repository \
+      sudo add-apt-repository \
       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
       $(lsb_release -cs) \
       stable"
@@ -176,7 +176,7 @@ else
       sudo yum install -y yum-utils device-mapper-persistent-data lvm2
 
       echo "----- add repository -----" 
-      yum-config-manager \
+      sudo yum-config-manager \
       --add-repo \
       https://download.docker.com/linux/centos/docker-ce.repo
 
