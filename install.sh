@@ -59,7 +59,7 @@ function install_if_not_exist() {
     echo "already installed ${1}"
   else
     echo "----- install ${1} -----"
-    case os in
+    case "$(os)" in
       ubuntu | debian)
         sudo apt install -y $1
         ;;
