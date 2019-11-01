@@ -5,6 +5,7 @@ dotfiles for Linux server
 Now supports the following OS:
 - Ubuntu
 - RedHat
+- SUSE
 - CentOS
 - Debian
 
