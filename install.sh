@@ -104,6 +104,9 @@ if [ ! -d ~/.zplug ]; then
 fi
 
 echo "----- link zsh setting files -----"
+if [ ! -d ~/.config ]; then
+  mkdir ~/.config
+fi
 LINK_FILES=(.zshrc .zsh_aliases .config/zsh)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
@@ -118,9 +121,6 @@ for file in ${LINK_FILES[@]}; do \
   unlink ~/.zsh/$file&>/dev/null
   ln -sf $(pwd)/zsh/$file ~/.zsh/$file; \
 done
-
-echo "----- change default shell -----"
-chsh -s $(which zsh)
 
 echo "##### finish to setup zsh #####"
 
@@ -140,5 +140,17 @@ export TMUX_TMPDIR=/tmp
 tmux source ~/.tmux.conf
 
 echo "##### finish to setup tmux #####"
+
+echo
+echo "zsh:"
+echo "  please run the following command."
+echo "    echo $(command -v zsh) >> /etc/shells"
+echo "    chsh -s $(command -v zsh)
+echo
+echo "Installed."
+echo
+echo "Please run \`zsh\`"
+echo "Please run \`source ~/.zshrc\`"
+echo
 
 exit 0
