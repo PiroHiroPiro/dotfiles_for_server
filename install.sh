@@ -146,11 +146,10 @@ echo "zsh:"
 echo "  please run the following command."
 echo "    echo $(command -v zsh) >> /etc/shells"
 echo "    chsh -s $(command -v zsh)"
+echo "    zsh"
+echo "    source ~/.zshrc"
 echo
 echo "Installed."
-echo
-echo "Please run \`zsh\`"
-echo "Please run \`source ~/.zshrc\`"
 echo
 
 exit 0
