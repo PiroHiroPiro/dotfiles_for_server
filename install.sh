@@ -137,7 +137,6 @@ done
 
 # https://did2memo.net/2017/05/18/tmux-attach-no-sessions-error/
 export TMUX_TMPDIR=/tmp
-tmux source ~/.tmux.conf
 
 echo "##### finish to setup tmux #####"
 
@@ -145,7 +144,7 @@ echo
 echo "zsh:"
 echo "  please run the following command."
 echo "    echo $(command -v zsh) >> /etc/shells"
-echo "    chsh -s $(command -v zsh)
+echo "    chsh -s $(command -v zsh)"
 echo
 echo "Installed."
 echo
