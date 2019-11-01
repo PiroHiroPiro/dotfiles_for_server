@@ -67,7 +67,8 @@ function install_if_not_exist() {
         sudo yum -y install $1
         ;;
       *)
-        echo "unsupported os.\nplease check https://github.com/PiroHiroPiro/dotfiles_for_server."
+        echo "unsupported os."
+        echo "please check https://github.com/PiroHiroPiro/dotfiles_for_server."
         exit 1
         ;;
     esac
