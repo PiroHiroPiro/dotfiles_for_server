@@ -108,7 +108,7 @@ if [ -x "$(command -v docker-compose)" ]; then
   echo "already installed docker-compose"
 else
   echo "----- install docker-compose -----"
-  export compose='1.24.0'
+  export compose="1.24.0"
   echo "install docker-compose v${compose}"
   echo "if you want other version, please check https://github.com/docker/compose/blob/master/CHANGELOG.md ."
   sudo curl -L https://github.com/docker/compose/releases/download/${compose}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
