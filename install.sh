@@ -142,71 +142,6 @@ export TMUX_TMPDIR=/tmp
 
 echo "##### finish to setup tmux #####"
 
-echo "##### setup docker #####"
-if [ -x "$(command -v docker)" ]; then
-  echo "already installed docker"
-else
-  case "$(os)" in
-    ubuntu | debian)
-      echo "----- uninstall dependencies -----" 
-      sudo apt-get remove -y docker docker-engine docker.io containerd runc
-
-      echo "----- install dependencies -----" 
-      sudo apt-get update -y
-      sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common
-      sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key  add -
-      sudo apt-key fingerprint 0EBFCD88
-
-      echo "----- add repository -----" 
-      sudo add-apt-repository \
-      "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-      $(lsb_release -cs) \
-      stable"
-
-      echo "----- install docker -----" 
-      sudo apt-get update -y
-      sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-      ;;
-
-    redhat | suse)
-      echo "----- uninstall dependencies -----" 
-      sudo yum remove docker docker-client docker-client-latest docker-common docker-latest docker-latest-logrotate docker-logrotate docker-engine
-
-      echo "----- install dependencies -----"
-      sudo yum install -y yum-utils device-mapper-persistent-data lvm2
-
-      echo "----- add repository -----" 
-      sudo yum-config-manager \
-      --add-repo \
-      https://download.docker.com/linux/centos/docker-ce.repo
-
-      echo "----- install docker -----" 
-      sudo yum -y install docker-ce docker-ce-cli containerd.io
-      ;;
-    *)
-      echo "unsupported os."
-      echo "please check https://github.com/PiroHiroPiro/dotfiles_for_server."
-      exit 1
-      ;;
-  esac
-
-  sudo gpasswd -a $(whoami) docker
-  sudo chmod 666 /var/run/docker.sock    
-fi
-
-if [ -x "$(command -v docker-compose)" ]; then
-  echo "already installed docker-compose"
-else
-  echo "----- install docker-compose -----"
-  export compose='1.24.0'
-  echo "install docker-compose v${compose}"
-  echo "if you want other version, please check https://github.com/docker/compose/blob/master/CHANGELOG.md ."
-  sudo curl -L https://github.com/docker/compose/releases/download/${compose}/docker-compose-`uname -s`-`uname -m` -o /usr/local/bin/docker-compose
-  sudo chmod 0755 /usr/local/bin/docker-compose
-fi
-
-echo "##### finish to setup docker #####"
-
 echo
 echo "zsh:"
 echo "  please run the following command."
@@ -214,6 +149,11 @@ echo "    sudo echo $(command -v zsh) >> /etc/shells"
 echo "    chsh -s $(command -v zsh)"
 echo "    zsh"
 echo "    source ~/.zshrc"
+echo
+echo "docker:"
+echo "  if you want to install docker, please run the following command."
+echo "    cd ${DOTPATH}"
+echo "    ./install_docker.sh"
 echo
 echo "Installed."
 echo
