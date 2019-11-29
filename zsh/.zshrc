@@ -32,9 +32,6 @@ zstyle ":completion:*" matcher-list "m:{a-z}={A-Z}"
 # ps コマンドのプロセス名補完
 zstyle ":completion:*:processes" command "ps x -o pid,s,args"
 
-# tmux
-source ~/.config/zsh/tmux.zsh
-
 # zplug
 zplug "denysdovhan/spaceship-prompt", use:spaceship.zsh, from:github, as:theme
 zplug "zsh-users/zsh-syntax-highlighting"
@@ -58,3 +55,7 @@ ENHANCD_HOOK_AFTER_CD="ls -GFl"
 # spaceship-prompt
 export SPACESHIP_CHAR_SYMBOL="%(?.>><(( o>.>><(( x>) "
 export SPACESHIP_DIR_TRUNC_REPO=false
+
+
+# tmux
+source ~/.config/zsh/tmux.zsh
