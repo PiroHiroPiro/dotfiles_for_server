@@ -8,7 +8,8 @@
 !.gitignore
 !README.md
 !install.sh
-!install_docker.sh
+
+!bin/install_docker.sh
 
 !zsh/.zsh_aliases
 !zsh/.zshrc

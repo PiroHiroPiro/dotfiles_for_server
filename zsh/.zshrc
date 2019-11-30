@@ -56,6 +56,5 @@ ENHANCD_HOOK_AFTER_CD="ls -GFl"
 export SPACESHIP_CHAR_SYMBOL="%(?.>><(( o>.>><(( x>) "
 export SPACESHIP_DIR_TRUNC_REPO=false
 
-
 # tmux
 source ~/.config/zsh/tmux.zsh
