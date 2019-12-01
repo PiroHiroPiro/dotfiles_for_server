@@ -102,7 +102,8 @@ if [ ! -d ~/.zplug ]; then
   install_if_not_exist git
   # git clone https://github.com/zplug/zplug ~/.zplug
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
-  source ~/.zplug/init.zsh
+  # https://github.com/zplug/zplug/issues/116
+  zsh ~/.zplug/init.zsh
 fi
 
 echo "----- link zsh setting files -----"
