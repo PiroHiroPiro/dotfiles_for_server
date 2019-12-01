@@ -102,6 +102,13 @@ if [ ! -d ~/.zplug ]; then
   install_if_not_exist git
   # git clone https://github.com/zplug/zplug ~/.zplug
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
+
+  # Permission deniedでinstallに失敗するので
+  MAKE_DIRS=(log cache repos)
+  for dir in ${MAKE_DIRS[@]}; do \
+    sudo mkdir ~/.zplug/$dir
+    sudo chmod 777 ~/.zplug/$dir; \
+  done
 fi
 
 echo "----- link zsh setting files -----"
@@ -112,15 +119,6 @@ LINK_FILES=(.zshrc .zsh_aliases .config/zsh)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
   ln -sf $(pwd)/zsh/$file ~/$file; \
-done
-
-if [ ! -d ~/.zsh ]; then
-  mkdir ~/.zsh
-fi
-LINK_FILES=(.zshrc)
-for file in ${LINK_FILES[@]}; do \
-  unlink ~/.zsh/$file&>/dev/null
-  ln -sf $(pwd)/zsh/$file ~/.zsh/$file; \
 done
 
 echo "##### finish to setup zsh #####"
