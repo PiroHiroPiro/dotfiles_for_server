@@ -3,11 +3,11 @@
 dotfiles for Linux server
 
 Now supports the following OS:
-- Ubuntu
-- RedHat
-- SUSE
-- CentOS
-- Debian
+- [Ubuntu](https://ubuntu.com/)
+- [Red Hat Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/)
+- [SUSE Linux Enterprise Server](https://www.suse.com/products/server/)
+- [CentOS](https://www.centos.org/)
+- [Debian](https://www.debian.org/)
 
 ## Setup
 
