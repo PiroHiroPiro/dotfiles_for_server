@@ -107,7 +107,7 @@ if [ ! -d ~/.zplug ]; then
   MAKE_DIRS=(log cache repos)
   for dir in ${MAKE_DIRS[@]}; do \
     sudo mkdir ~/.zplug/$dir
-    sudo chmod 777 ~/.zplug/$dir; \
+    sudo chmod -R 777 ~/.zplug/$dir; \
   done
 fi
 
@@ -144,10 +144,17 @@ echo "##### setup vim #####"
 install_if_not_exist vim
 
 echo "----- link vim setting files -----"
-LINK_FILES=(.vimrc .dein.toml .config/dein)
+LINK_FILES=(.vimrc dein.toml .config/dein)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
   ln -sf $(pwd)/vim/$file ~/$file; \
+done
+
+# Permission deniedでinstallに失敗するので
+MAKE_DIRS=(.cache repos/github.com)
+for dir in ${MAKE_DIRS[@]}; do \
+  sudo mkdir ~/.config/dein/$dir
+  sudo chmod -R 777 ~/.config/dein/$dir; \
 done
 
 echo "----- install dein.vim -----"
