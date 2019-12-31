@@ -162,9 +162,9 @@ else
 fi
 
 # Permission deniedでinstallに失敗するので
-MAKE_DIRS=(.cache repos/github.com)
+MAKE_DIRS=(. .cache repos/github.com)
 for dir in ${MAKE_DIRS[@]}; do \
-  sudo mkdir ~/.config/dein/$dir
+  sudo mkdir -p ~/.config/dein/$dir
   sudo chmod -R 777 ~/.config/dein/$dir; \
 done
 
