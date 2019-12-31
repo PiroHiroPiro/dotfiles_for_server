@@ -150,13 +150,6 @@ for file in ${LINK_FILES[@]}; do \
   ln -sf $(pwd)/vim/$file ~/$file; \
 done
 
-# Permission deniedでinstallに失敗するので
-MAKE_DIRS=(.cache repos/github.com)
-for dir in ${MAKE_DIRS[@]}; do \
-  sudo mkdir ~/.config/dein/$dir
-  sudo chmod -R 777 ~/.config/dein/$dir; \
-done
-
 echo "----- install dein.vim -----"
 if [ -d ~/.config/dein/repos/github.com/Shougo/dein.vim/ ]; then
   echo "dein.vim is already installed"
@@ -167,6 +160,13 @@ else
   fi
   bash ~/.config/dein/installer.sh ~/.config/dein/ &>/dev/null
 fi
+
+# Permission deniedでinstallに失敗するので
+MAKE_DIRS=(.cache repos/github.com)
+for dir in ${MAKE_DIRS[@]}; do \
+  sudo mkdir ~/.config/dein/$dir
+  sudo chmod -R 777 ~/.config/dein/$dir; \
+done
 
 echo "##### finish to setup vim #####"
 
