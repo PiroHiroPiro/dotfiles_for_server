@@ -144,7 +144,7 @@ echo "##### setup vim #####"
 install_if_not_exist vim
 
 echo "----- link vim setting files -----"
-LINK_FILES=(.vimrc dein.toml .config/dein)
+LINK_FILES=(.vimrc dein.toml dein_lazy.toml .config/dein)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
   ln -sf $(pwd)/vim/$file ~/$file; \

@@ -10,7 +10,7 @@ endif
 " したと仮定
 let deinroot = "~/.config/dein/."
 let $DEIN_PATH= deinroot . "/repos/github.com/Shougo/dein.vim"
-let s:toml = "~/dein.toml"
+let tomlroot = "~/."
 
 " Required:
 set runtimepath+=$DEIN_PATH
@@ -23,7 +23,8 @@ if dein#load_state(deinroot)
   " Required:
   call dein#add($DEIN_PATH)
 
-  call dein#load_toml(s:toml, {'lazy': 0})
+    call dein#load_toml(tomlroot . "/dein.toml", {'lazy': 0})
+    call dein#load_toml(tomlroot . "/dein_lazy.toml", {'lazy': 1})
 
   " not installed python...
   " call dein#add('Shougo/deoplete.nvim')

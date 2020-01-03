@@ -16,6 +16,7 @@
 
 !vim/.vimrc
 !vim/dein.toml
+!vim/dein_lazy.toml
 
 !zsh/.zsh_aliases
 !zsh/.zshrc
