@@ -121,6 +121,9 @@ for file in ${LINK_FILES[@]}; do \
   ln -sf $(pwd)/zsh/$file ~/$file; \
 done
 
+echo "change default shell"
+chsh -s $(command -v zsh)"
+
 echo "##### finish to setup zsh #####"
 
 echo "##### setup tmux #####"
@@ -170,12 +173,6 @@ done
 
 echo "##### finish to setup vim #####"
 
-echo
-echo "zsh:"
-echo "  please run the following command."
-echo "    chsh -s $(command -v zsh)"
-echo "    zsh"
-echo "    source ~/.zshrc"
 echo
 echo "docker:"
 echo "  if you want to install docker, please run the following command."
