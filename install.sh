@@ -63,11 +63,11 @@ function install_if_not_exist() {
       ubuntu | debian)
         sudo apt install -y $1
         ;;
-      redhat | suse)
+      redhat | suse | fedora)
         sudo yum -y install $1
         ;;
       *)
-        echo "unsupported os."
+        echo "detected unsupported OS."
         echo "please check https://github.com/PiroHiroPiro/dotfiles_for_server."
         exit 1
         ;;
@@ -103,7 +103,7 @@ if [ ! -d ~/.zplug ]; then
   # git clone https://github.com/zplug/zplug ~/.zplug
   curl -sL --proto-redir -all,https https://raw.githubusercontent.com/zplug/installer/master/installer.zsh | zsh
 
-  # Permission deniedでinstallに失敗するので
+  # Permission deniedでinstallに失敗するので、予めsudoで作成
   MAKE_DIRS=(log cache repos)
   for dir in ${MAKE_DIRS[@]}; do \
     sudo mkdir ~/.zplug/$dir
@@ -118,7 +118,7 @@ fi
 LINK_FILES=(.zshrc .zsh_aliases .config/zsh)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
-  ln -sf $(pwd)/zsh/$file ~/$file; \
+  ln -sf $DOTPATH/zsh/$file ~/$file; \
 done
 
 echo "##### finish to setup zsh #####"
@@ -131,7 +131,7 @@ echo "----- link tmux setting files -----"
 LINK_FILES=(.tmux.conf .config/tmux)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
-  ln -sf $(pwd)/tmux/$file ~/$file; \
+  ln -sf $DOTPATH/tmux/$file ~/$file; \
 done
 
 # https://did2memo.net/2017/05/18/tmux-attach-no-sessions-error/
@@ -147,7 +147,7 @@ echo "----- link vim setting files -----"
 LINK_FILES=(.vimrc dein.toml dein_lazy.toml .config/dein)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
-  ln -sf $(pwd)/vim/$file ~/$file; \
+  ln -sf $DOTPATH/vim/$file ~/$file; \
 done
 
 echo "----- install dein.vim -----"
@@ -161,7 +161,7 @@ else
   bash ~/.config/dein/installer.sh ~/.config/dein/ &>/dev/null
 fi
 
-# Permission deniedでinstallに失敗するので
+# Permission deniedでinstallに失敗するので、予めsudoで作成
 MAKE_DIRS=(. .cache repos/github.com)
 for dir in ${MAKE_DIRS[@]}; do \
   sudo mkdir -p ~/.config/dein/$dir
@@ -169,6 +169,37 @@ for dir in ${MAKE_DIRS[@]}; do \
 done
 
 echo "##### finish to setup vim #####"
+
+cd ~
+
+echo "##### setup linuxbrew #####"
+# by https://docs.brew.sh/Homebrew-on-Linux
+
+echo "----- install requirement packeage -----"
+install_if_not_exist file
+install_if_not_exist git
+case "$(os)" in
+  ubuntu | debian)
+    sudo apt-get install -y build-essential
+    ;;
+  redhat | suse | fedora)
+    sudo yum groupinstall 'Development Tools'
+    sudo yum -y install libxcrypt-compat # needed by Fedora 30 and up
+    ;;
+  *)
+    echo "detected unsupported OS by linuxbrew."
+    echo "please check https://docs.brew.sh/Homebrew-on-Linux."
+    ;;
+esac
+
+echo "----- install linuxbrew -----"
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
+
+test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
+test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
+test -r ~/.zshrc && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.zshrc
+
+echo "##### finish to setup linuxbrew #####"
 
 echo
 echo "zsh:"
