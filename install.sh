@@ -199,6 +199,13 @@ test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 test -r ~/.zshrc && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.zshrc
 
+echo "----- install command using linuxbrew -----"
+
+brew install exa
+brew install procs
+brew install fd
+brew install ripgrep
+
 echo "##### finish to setup linuxbrew #####"
 
 echo
