@@ -3,12 +3,10 @@
 dotfiles for Linux server
 
 Now supports the following OS:
-- [Debian](https://www.debian.org/)
-- [Ubuntu](https://ubuntu.com/)
-- [Fedora](https://getfedora.org/)
-- [CentOS](https://www.centos.org/)
 - [Red Hat Enterprise Linux](https://www.redhat.com/en/technologies/linux-platforms/enterprise-linux/)
-- [SUSE Linux Enterprise Server](https://www.suse.com/products/server/)
+- [Ubuntu](https://ubuntu.com/)
+- [CentOS](https://www.centos.org/)
+- [Debian](https://www.debian.org/)
 
 ## Setup
 
