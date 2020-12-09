@@ -57,7 +57,6 @@ zplug "plugins/git", from:oh-my-zsh
 zplug "junegunn/fzf-bin", as:command, from:gh-r, rename-to:fzf
 zplug "stedolan/jq", from:gh-r, as:command, rename-to:"jq"
 zplug "b4b4r07/enhancd", use:init.sh
-zplug "b4b4r07/emoji-cli"
 zplug "b4b4r07/httpstat", as:command, use:"(*).sh", rename-to:"$1"
 zplug "supercrabtree/k"
 
@@ -66,7 +65,7 @@ if ! zplug check; then zplug install ;fi
 zplug load
 
 # enhancd
-ENHANCD_HOOK_AFTER_CD="k -ah"
+ENHANCD_HOOK_AFTER_CD="exa -aaF"
 
 # spaceship-prompt
 export SPACESHIP_CHAR_SYMBOL="%(?.>><(( o>.>><(( x>) "
