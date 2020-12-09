@@ -195,12 +195,10 @@ esac
 echo "----- install linuxbrew -----"
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install.sh)"
 
-test -d ~/.linuxbrew && eval $(~/.linuxbrew/bin/brew shellenv)
 test -d /home/linuxbrew/.linuxbrew && eval $(/home/linuxbrew/.linuxbrew/bin/brew shellenv)
 test -r ~/.zshrc && echo "eval \$($(brew --prefix)/bin/brew shellenv)" >> ~/.zshrc
 
 echo "----- install command using linuxbrew -----"
-
 brew install exa
 brew install procs
 brew install fd
@@ -210,13 +208,13 @@ echo "##### finish to setup linuxbrew #####"
 
 echo
 echo "zsh:"
-echo "  please run the following command."
-echo "    chsh -s $(command -v zsh)"
+echo "please run the following command."
+echo "  chsh -s $(command -v zsh)"
 echo
 echo "docker:"
-echo "  if you want to install docker, please run the following command."
-echo "    cd ${DOTPATH}/bin"
-echo "    ./install_docker.sh"
+echo "if you want to install docker, please run the following command."
+echo "  cd ${DOTPATH}/bin"
+echo "  ./install_docker.sh"
 echo
 echo "Installed."
 echo
