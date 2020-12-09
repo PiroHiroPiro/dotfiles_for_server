@@ -183,8 +183,8 @@ case "$(os)" in
     sudo apt-get install -y build-essential
     ;;
   redhat | suse | fedora)
-    sudo yum groupinstall 'Development Tools'
-    sudo yum -y install libxcrypt-compat # needed by Fedora 30 and up
+    sudo yum groupinstall -y 'Development Tools'
+    sudo yum install -y libxcrypt-compat # needed by Fedora 30 and up
     ;;
   *)
     echo "detected unsupported OS by linuxbrew."
