@@ -3,99 +3,111 @@
 DOTPATH=~/dotfiles
 
 # https://qiita.com/koara-local/items/1377ddb06796ec8c628a
+# https://gist.github.com/natefoo/814c5bf936922dad97ff
 function os() {
-  distri_name=""
+  distro_name="unknown"
   if [ -e /etc/debian_version ] || [ -e /etc/debian_release ]; then
     if [ -e /etc/lsb-release ]; then
       # Ubuntu
       # include Elementary OS
-      distri_name="ubuntu"
+      distro_name="ubuntu"
     else
       # Debian
-      distri_name="debian"
+      distro_name="debian"
     fi
   elif [ -e /etc/redhat-release ]; then
     if [ -e /etc/oracle-release ]; then
       # Oracle Linux
-      distri_name="oracle"
+      distro_name="oracle"
     elif [ -e /etc/centos-release ]; then
       # CentOS
-      distri_name="centos"
+      distro_name="centos"
     else
       # Red Hat Enterprise Linux
-      distri_name="redhat"
+      distro_name="redhat"
     fi
   elif [ -e /etc/fedora-release ]; then
     # Fedra
-    distri_name="fedora"
+    distro_name="fedora"
   elif [ -e /etc/SuSE-release ]; then
     # SuSE Linux
-    distri_name="suse"
+    distro_name="suse"
   elif [ -e /etc/arch-release ]; then
     # Arch Linux
-    distri_name="arch"
+    distro_name="arch"
   elif [ -e /etc/turbolinux-release ]; then
     # Turbolinux
-    distri_name="turbol"
+    distro_name="turbol"
   elif [ -e /etc/mandriva-release ]; then
     # Mandriva Linux
-    distri_name="mandriva"
+    distro_name="mandriva"
   elif [ -e /etc/vine-release ]; then
     # Vine Linux
-    distri_name="vine"
+    distro_name="vine"
   elif [ -e /etc/gentoo-release ]; then
     # Gentoo Linux
-    distri_name="gentoo"
+    distro_name="gentoo"
   elif [ -e /etc/os-release ]; then
+    # FIXME
     NAME=$(cat /etc/os-release | grep --regexp="^NAME=" | sed -e "s/\"//g" | sed -e "s/NAME=//g")
 
     case $NAME in
       "Amazon Linux AMI")
-        distri_name="amazon"
+        # Amazon Linux
+        distro_name="amazon"
         ;;
       "Arch Linux")
-        distri_name="arch"
+        # Arch Linux
+        distro_name="arch"
         ;;
       "CentOS Linux")
-        distri_name="centos"
+        # CentOS
+        distro_name="centos"
         ;;
       "Debian GNU/Linux")
-        distri_name="debian"
+        # Debian
+        distro_name="debian"
         ;;
       "Fedora")
-        distri_name="fedora"
-        ;;
-      "openSUSE" | "SLES")
-        distri_name="suse"
-        ;;
-      "Scientific Linux")
-        distri_name="scientific"
-        ;;
-      "Slackware")
-        distri_name="slackware"
-        ;;
-      "Ubuntu")
-        distri_name="ubuntu"
+        # Fedora
+        distro_name="fedora"
         ;;
       "Kali GNU/Linux")
-        distri_name="kali"
+        # Kali Linux
+        distro_name="kali"
         ;;
       "Mageia")
-        distri_name="mageia"
+        # Mageia
+        distro_name="mageia"
+        ;;
+      "openSUSE")
+        # openSUSE
+        distro_name="opensuse"
         ;;
       "Raspbian GNU/Linux")
-        distri_name="raspbian"
+        # Raspberry Pi OS
+        distro_name="raspbian"
         ;;
-      *)
-        distri_name="unknown"
+      "Scientific Linux")
+        # Scientific Linux
+        distro_name="scientific"
+        ;;
+      "Slackware")
+        # Slackware Linux
+        distro_name="slackware"
+        ;;
+      "SLES")
+        # SUSE Linux Enterprise Server
+        distro_name="sles"
+        ;;
+      "Ubuntu")
+        # Ubuntu
+        distro_name="ubuntu"
         ;;
     esac
-  else
-    # Other
-    distri_name="unknown"
   fi
 
-  echo "${distri_name}"
+  echo "${distro_name}"
 }
 
 # https://stackoverflow.com/questions/592620/how-to-check-if-a-program-exists-from-a-bash-script
@@ -108,7 +120,7 @@ function install_if_not_exist() {
       ubuntu | debian | raspbian)
         sudo apt install -y $1
         ;;
-      redhat | centos | suse | fedora | amazon)
+      redhat | centos | amazon)
         sudo yum -y install $1
         ;;
       *)
@@ -230,7 +242,7 @@ case "$(os)" in
   ubuntu | debian | raspbian)
     sudo apt-get install -y build-essential
     ;;
-  redhat | centos | suse | fedora | amazon)
+  redhat | centos | amazon)
     sudo yum groupinstall -y 'Development Tools'
     sudo yum install -y libxcrypt-compat # needed by Fedora 30 and up
     ;;
