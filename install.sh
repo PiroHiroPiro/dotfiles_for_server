@@ -213,12 +213,12 @@ echo
 echo "zsh:"
 echo "please run the following command."
 echo "  chsh -s $(command -v zsh)"
-echo "  exec $(command -v zsh) -l"
 echo
 echo "docker:"
 echo "if you want to install docker, please run the following command."
 echo "  cd ${DOTPATH}/bin"
 echo "  ./install_docker.sh"
+echo
 echo
 echo "Installed."
 echo
