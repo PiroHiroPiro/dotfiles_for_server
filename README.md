@@ -7,6 +7,8 @@ Now supports the following OS:
 - [Ubuntu](https://ubuntu.com/)
 - [CentOS](https://www.centos.org/)
 - [Debian](https://www.debian.org/)
+- [Raspberry Pi OS](https://www.raspberrypi.org/software/operating-systems/)
+- [Amazon Linux](https://aws.amazon.com/jp/amazon-linux-2/)
 
 ## Setup
 
