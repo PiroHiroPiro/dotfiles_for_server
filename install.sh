@@ -118,8 +118,8 @@ fi
 LINK_FILES=(.zshrc .zsh_aliases .config/zsh)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
-  ln -sf $DOTPATH/zsh/$file ~/$file; \
-  echo "Linked: ${file}." \
+  ln -sf $DOTPATH/zsh/$file ~/$file
+  echo "Linked: ${file}."; \
 done
 
 echo "##### finish to setup zsh #####"
@@ -132,8 +132,8 @@ echo "----- link tmux setting files -----"
 LINK_FILES=(.tmux.conf .config/tmux)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
-  ln -sf $DOTPATH/tmux/$file ~/$file; \
-  echo "Linked: ${file}." \
+  ln -sf $DOTPATH/tmux/$file ~/$file
+  echo "Linked: ${file}."; \
 done
 
 # https://did2memo.net/2017/05/18/tmux-attach-no-sessions-error/
@@ -149,8 +149,8 @@ echo "----- link vim setting files -----"
 LINK_FILES=(.vimrc dein.toml dein_lazy.toml .config/dein)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
-  ln -sf $DOTPATH/vim/$file ~/$file; \
-  echo "Linked: ${file}." \
+  ln -sf $DOTPATH/vim/$file ~/$file
+  echo "Linked: ${file}."; \
 done
 
 echo "----- install dein.vim -----"
