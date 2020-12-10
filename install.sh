@@ -121,6 +121,9 @@ for file in ${LINK_FILES[@]}; do \
   ln -sf $DOTPATH/zsh/$file ~/$file; \
 done
 
+echo "----- change login shell to zsh -----"
+chsh -s $(command -v zsh)
+
 echo "##### finish to setup zsh #####"
 
 echo "##### setup tmux #####"
@@ -209,7 +212,7 @@ echo "##### finish to setup linuxbrew #####"
 echo
 echo "zsh:"
 echo "please run the following command."
-echo "  chsh -s $(command -v zsh)"
+echo "  exec $SHELL -l"
 echo
 echo "docker:"
 echo "if you want to install docker, please run the following command."
