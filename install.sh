@@ -6,7 +6,6 @@ DOTPATH=~/dotfiles
 function os() {
   distri_name=""
   if [ -e /etc/debian_version ] || [ -e /etc/debian_release ]; then
-    # Check Ubuntu or Debian
     if [ -e /etc/lsb-release ]; then
       # Ubuntu
       # include Elementary OS
@@ -15,27 +14,29 @@ function os() {
       # Debian
       distri_name="debian"
     fi
-  elif [ -e /etc/fedora-release ]; then
-    # Fedra
-    distri_name="fedora"
   elif [ -e /etc/redhat-release ]; then
     if [ -e /etc/oracle-release ]; then
       # Oracle Linux
       distri_name="oracle"
+    elif [ -e /etc/centos-release ]; then
+      # CentOS
+      distri_name="centos"
     else
       # Red Hat Enterprise Linux
-      # include centOS
       distri_name="redhat"
     fi
+  elif [ -e /etc/fedora-release ]; then
+    # Fedra
+    distri_name="fedora"
+  elif [ -e /etc/SuSE-release ]; then
+    # SuSE Linux
+    distri_name="suse"
   elif [ -e /etc/arch-release ]; then
     # Arch Linux
     distri_name="arch"
   elif [ -e /etc/turbolinux-release ]; then
     # Turbolinux
     distri_name="turbol"
-  elif [ -e /etc/SuSE-release ]; then
-    # SuSE Linux
-    distri_name="suse"
   elif [ -e /etc/mandriva-release ]; then
     # Mandriva Linux
     distri_name="mandriva"
@@ -45,6 +46,50 @@ function os() {
   elif [ -e /etc/gentoo-release ]; then
     # Gentoo Linux
     distri_name="gentoo"
+  elif [ -e /etc/os-release ]; then
+    NAME=$(cat /etc/os-release | grep --regexp="^NAME=" | sed -e "s/\"//g" | sed -e "s/NAME=//g")
+
+    case $NAME in
+      "Amazon Linux AMI")
+        distri_name="amazon"
+        ;;
+      "Arch Linux")
+        distri_name="arch"
+        ;;
+      "CentOS Linux")
+        distri_name="centos"
+        ;;
+      "Debian GNU/Linux")
+        distri_name="debian"
+        ;;
+      "Fedora")
+        distri_name="fedora"
+        ;;
+      "openSUSE" | "SLES")
+        distri_name="suse"
+        ;;
+      "Scientific Linux")
+        distri_name="scientific"
+        ;;
+      "Slackware")
+        distri_name="slackware"
+        ;;
+      "Ubuntu")
+        distri_name="ubuntu"
+        ;;
+      "Kali GNU/Linux")
+        distri_name="kali"
+        ;;
+      "Mageia")
+        distri_name="mageia"
+        ;;
+      "Raspbian GNU/Linux")
+        distri_name="raspbian"
+        ;;
+      *)
+        distri_name="unknown"
+        ;;
+    esac
   else
     # Other
     distri_name="unknown"
@@ -60,10 +105,10 @@ function install_if_not_exist() {
   else
     echo "----- install ${1} -----"
     case "$(os)" in
-      ubuntu | debian)
+      ubuntu | debian | raspbian)
         sudo apt install -y $1
         ;;
-      redhat | suse | fedora)
+      redhat | centos | suse | fedora | amazon)
         sudo yum -y install $1
         ;;
       *)
@@ -182,10 +227,10 @@ echo "----- install requirement packeage -----"
 install_if_not_exist file
 install_if_not_exist git
 case "$(os)" in
-  ubuntu | debian)
+  ubuntu | debian | raspbian)
     sudo apt-get install -y build-essential
     ;;
-  redhat | suse | fedora)
+  redhat | centos | suse | fedora | amazon)
     sudo yum groupinstall -y 'Development Tools'
     sudo yum install -y libxcrypt-compat # needed by Fedora 30 and up
     ;;
