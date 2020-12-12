@@ -52,7 +52,7 @@ function os() {
     NAME=$(cat /etc/os-release | grep --regexp="^NAME=" | sed -e "s/\"//g" | sed -e "s/NAME=//g")
 
     case $NAME in
-      "Amazon Linux AMI")
+      "Amazon Linux")
         # Amazon Linux
         distro_name="amazon"
         ;;
