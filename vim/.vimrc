@@ -1,41 +1,66 @@
 """" dein """"
+" Ward off unexpected things that your distro might have made, as
+" well as sanely reset options when re-sourcing .vimrc
 if &compatible
   set nocompatible
 endif
 
 " Required:
 " Add the dein installation directory into runtimepath
-" ~/.config/deinで
-" sh installer.sh .
+" ~/install.shで
+" sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh)"
 " したと仮定
-let deinroot = "~/.config/dein/."
-let $DEIN_PATH= deinroot . "/repos/github.com/Shougo/dein.vim"
+let $DEIN_ROOT = "~/.config/dein/."
+let $DEIN_PATH= $DEIN_ROOT . "/repos/github.com/Shougo/dein.vim"
 let tomlroot = "~/."
 
-" Required:
-set runtimepath+=$DEIN_PATH
+" Set Dein base path (required)
+let s:dein_base = '~/.cache/dein'
+
+" Set Dein source path (required)
+let s:dein_src = $DEIN_PATH
+
+" Set Dein runtime path (required)
+execute 'set runtimepath+=' . s:dein_src
 
 " Required:
-if dein#load_state(deinroot)
-  call dein#begin(deinroot)
+if dein#load_state($DEIN_ROOT)
+  " Call Dein initialization (required)
+  call dein#begin(s:dein_base)
 
   " Let dein manage dein
   " Required:
-  call dein#add($DEIN_PATH)
-
+  call dein#add(s:dein_src)
+    " Your plugins go here:
     call dein#load_toml(tomlroot . "/dein.toml", {'lazy': 0})
     call dein#load_toml(tomlroot . "/dein_lazy.toml", {'lazy': 1})
 
   " not installed python...
   " call dein#add('Shougo/deoplete.nvim')
 
+  " Finish Dein initialization (required)
   call dein#end()
+
   call dein#save_state()
 endif
 
 " Required:
-filetype plugin indent on
-syntax enable
+" Attempt to determine the type of a file based on its name and possibly its
+" contents. Use this to allow intelligent auto-indenting for each filetype,
+" and for plugins that are filetype specific.
+if has('filetype')
+  filetype indent plugin on
+endif
+
+" Enable syntax highlighting
+if has('syntax')
+  syntax on
+endif
+
+" Uncomment if you want to install not-installed plugins on startup.
+"if dein#check_install()
+" call dein#install()
+"endif
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()

@@ -203,7 +203,7 @@ echo "##### setup vim #####"
 install_if_not_exist vim
 
 echo "----- link vim setting files -----"
-LINK_FILES=(.vimrc dein.toml dein_lazy.toml .config/dein)
+LINK_FILES=(dein.toml dein_lazy.toml .config/dein)
 for file in ${LINK_FILES[@]}; do \
   unlink ~/$file&>/dev/null
   ln -sf $DOTPATH/vim/$file ~/$file
@@ -214,11 +214,8 @@ echo "----- install dein.vim -----"
 if [ -d ~/.config/dein/repos/github.com/Shougo/dein.vim/ ]; then
   echo "dein.vim is already installed"
 else
-  if [ ! -f ~/.config/dein/installer.sh ]; then
-    echo "install dein installer.sh"
-    curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > ~/.config/dein/installer.sh
-  fi
-  bash ~/.config/dein/installer.sh ~/.config/dein/ &>/dev/null
+  echo "install dein"
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/Shougo/dein-installer.vim/master/installer.sh)"
 fi
 
 # Permission deniedでinstallに失敗するので、予めsudoで作成
@@ -226,6 +223,13 @@ MAKE_DIRS=(. .cache repos/github.com)
 for dir in ${MAKE_DIRS[@]}; do \
   sudo mkdir -p ~/.config/dein/$dir
   sudo chmod -R 777 ~/.config/dein/$dir; \
+done
+
+LINK_FILES=(.vimrc)
+for file in ${LINK_FILES[@]}; do \
+  rm -f ~/$file
+  ln -sf $DOTPATH/vim/$file ~/$file
+  echo "Linked: ${file}"; \
 done
 
 echo "##### finish to setup vim #####"
