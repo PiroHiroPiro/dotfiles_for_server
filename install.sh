@@ -137,9 +137,9 @@ echo "##### download dotfiles #####"
 install_if_not_exist curl
 install_if_not_exist tar
 
-curl -sSL "https://github.com/PiroHiroPiro/dotfiles_for_server/archive/master.tar.gz" | tar -zxv
+curl -sSL "https://github.com/PiroHiroPiro/dotfiles_for_server/archive/main.tar.gz" | tar -zxv
 # 解凍したら，DOTPATH に置く
-mv -f dotfiles_for_server-master $DOTPATH
+mv -f dotfiles_for_server-main $DOTPATH
 
 cd "${DOTPATH}"
 
